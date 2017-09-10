@@ -15,12 +15,12 @@ def checkout(request):
     if request.method == 'POST':
         token = request.POST['stripeToken']
         try: 
-        charge = stripe.Charge.create(
-            amount=1000,
-            currency="usd",
-            description="Example charge",
-            source=token,
-        )
+            charge = stripe.Charge.create(
+                amount=1000,
+                currency="usd",
+                description="Example charge",
+                source=token,
+            )
         except stripe.error.CardError as e:
             pass
     context = {'publishKey': publishKey}
