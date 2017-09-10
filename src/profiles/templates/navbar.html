@@ -6,10 +6,12 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        {% url 'home' as home %}
+        {% url 'about' as about %}
+        <li class="nav-item {% if request.path == home %} active {% endif %}">
         <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {% if request.path == about %} active {% endif %}">
         <a class="nav-link" href="{% url 'about' %}">About</a>
         </li>
         <li class="nav-item">
