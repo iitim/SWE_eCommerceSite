@@ -34,4 +34,16 @@ def my_callback(sender, request, user, **kwargs):
         userProfile.name = user.username
         userProfile.save()
 
-user_logged_in.connect(my_callback)
+def stripeCallback(sender, request, user, **kwargs):
+    idStripe, created = userStripe.objects.get_or_create(user=user)
+    if created:
+        print 'created for %s' %(user.username)
+
+def profileCallback(sender, request, user, **kwargs):
+    userProfile, is_created = profile.objects.get_or_create(user=user)
+    if created:
+        userProfile.name = user.username
+        userProfile.save()
+
+user_logged_in.connect(stripeCallback)
+user_signed_up.connect(profileCallback)
