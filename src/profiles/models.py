@@ -25,7 +25,13 @@ class userStripe(models.Model):
             return self.user.username
 
 def my_callback(sender, request, user, **kwargs):
-    print("Request finish!")
-    print kwargs
+    idStripe, create = userStripe.objects.get_or_create(user=user)
+    if created:
+        print 'created for %s' %(user.username)
+
+    userProfile, is_created = profile.objects.get_or_create(user=user)
+    if created:
+        userProfile.name = user.username
+        userProfile.save()
 
 user_logged_in.connect(my_callback)
